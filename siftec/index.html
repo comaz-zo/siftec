@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+     KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<html>
+    <head>
+
+        <meta charset='utf-8'/>
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+        <link rel="stylesheet" type="text/css" href="css/index.css">
+
+        <!--script type="text/javascript" src="cordova.js"></script-->
+        <!--script type="text/javascript" src="js/index.js"></script-->
+
+        <link rel="stylesheet" href="js/jqm/jquery.mobile.theme-1.4.5.css" />
+		<link rel="stylesheet" href="js/jqm/jquery.mobile-1.4.5.css" />
+
+         <script src="js/jquery-1.8.2.js"></script>
+        <script>
+            $(document).bind('mobileinit',function(){
+                $.mobile.changePage.defaults.changeHash = false;
+                $.mobile.hashListeningEnabled = false;
+
+            });
+        </script>
+		<script type="text/javascript" src="js/jqm/jquery.mobile-1.4.5.js"></script>
+
+		<link rel="stylesheet" href="js/leaflet/leaflet.css" />
+		<!--[if lte IE 8]>
+		<link rel="stylesheet" href="js/leaflet/leaflet.ie.css" />
+		<![endif]-->
+		<script src="js/leaflet/leaflet-src.js"></script>
+		<script type="text/javascript" src="js/misc/shp.js"> </script>
+		<script type="text/javascript" src="js/proj4/proj4js.js"> </script>
+		<script type="text/javascript" src="js/leaflet/proj4leaflet.js"> </script>
+		<link rel="stylesheet" href="js/leaflet/leaflet.label.css" />
+		<script type="text/javascript" src="js/leaflet/leaflet.label.js"> </script>
+        <script src="js/leaflet/panel_layers/leaflet-panel-layers.src.js"></script>
+        <link rel="stylesheet" href="js/leaflet/panel_layers/leaflet-panel-layers.min.css" />
+        <script type="text/javascript" src="js/leaflet/markercluster/leaflet.markercluster-src.js"> </script>
+        <link rel="stylesheet" href="js/leaflet/markercluster/MarkerCluster.css" />
+        <link rel="stylesheet" href="js/leaflet/markercluster/MarkerCluster.Default.css" />
+        <!-- GeoJSon DATA -->
+		<script type="text/javascript" src="data/ufor_wgs84.js"></script>
+        <script type="text/javascript" src="data/ufor_centroidi_wgs84.js"></script>
+        <script type="text/javascript" src="data/ufor_comp.js"></script>
+		<script type="text/javascript" src="data/strati_wgs84.js"></script>
+		<script type="text/javascript" src="data/particellare_wgs84.js"></script>
+		<script type="text/javascript" src="data/particellare_etichette_wgs84.js"></script>
+		<script type="text/javascript" src="data/viabilita_wgs84.js"></script>
+		<script type="text/javascript" src="data/toponimi_wgs84.js"></script>
+		<script type="text/javascript" src="data/geonote_wgs84.js"></script>
+        <script type="text/javascript" src="data/perimetro_wgs84.js"></script>
+        <script type="text/javascript" src="data/bigplot_wgs84.js"></script>
+
+		<script type="text/javascript" src="js/login.js"></script>
+		<script type="text/javascript" src="js/core.js"></script>
+
+        <title>SIFTeC</title>
+    </head>
+    <body>
+        <style type="text/css">
+				body {
+					padding: 0;
+					margin: 0;
+				}
+				html, body, {
+					height: 100%;
+				}
+
+				.info {
+					padding: 6px 8px;
+					font: 14px/16px Arial, Helvetica, sans-serif;
+					background: white;
+					background: rgba(255,255,255);
+					box-shadow: 0 0 15px rgba(0,0,0,0.2);
+					border-radius: 5px;
+				}
+				.info h4 {
+					margin: 0 0 5px;
+					color: #777;
+				}
+
+				.legend {
+					text-align: left;
+					line-height: 18px;
+					color: #222;
+                    background: #DDD;
+				}
+				.legend i {
+					width: 18px;
+					height: 18px;
+					float: left;
+					margin-right: 8px;
+					opacity: 0.7;
+				}
+
+				#map_watermark {
+                    position:absolute;
+                    top: 15px;
+                    right: 65px;
+                    width: 135px;
+                    height: 30px;
+                    z-index: 1;
+                    background: transparent;
+                    background-image: url("images/siftec_logo.png");
+                    opacity:0.5;
+                    background-size: 100% 100%;
+                }
+
+		</style>
+		<!-- Start of first page -->
+
+        <!-- LOGIN page -->
+
+        <div data-role="page" id="login" data-theme="b">
+            <div data-role="header" data-theme="a">
+                <h3>Login Page</h3>
+            </div>
+
+            <div data-role="content">
+                <form id="check-user" class="ui-body ui-body-a ui-corner-all" data-ajax="false">
+                    <fieldset>
+                        <div data-role="fieldcontain">
+                            <label for="username">Enter your username:</label>
+                            <input type="text" value="" name="username" id="username"/>
+                        </div>
+                        <div data-role="fieldcontain">
+                            <label for="password">Enter your password:</label>
+                            <input type="password" value="" name="password" id="password"/>
+                        </div>
+                        <input type="button" data-theme="b" name="submit" id="submit" value="Submit">
+                    </fieldset>
+                </form>
+            </div>
+
+            <div data-theme="a" data-role="footer" data-position="fixed">
+
+            </div>
+        </div>
+
+
+		<div data-role="page" id="home" data-theme="a" >
+            <div data-theme="a" data-role="header">
+                <!--
+                <a href="#login" class="ui-btn-left ui-btn ui-btn-inline ui-mini ui-corner-all ui-btn-icon-left ui-icon-delete" id="back-btn">Exit</a>
+                -->
+                <h3>SIFTeC</h3>
+            </div>
+			<div data-role="content">
+
+				<img src="images/cp_home.png" alt="CASTEL PORZIANO" width="100%" />
+
+                <div id="main_menu" data-role="collapsible-set"  data-theme="a" data-content-theme="a" data-inset="false">
+                    <!--<li><a data-role="button" href="#map_clean_page" data-inset="true"	  >Mappa senza legenda</a></li>-->
+                    <ul data-role="listview">
+                        <li>Sistema Informativo Forestale <br>
+                        Tenuta di Castelporziano</li>
+                        <li><a id="go2SIFTeC" href="#">SIFTeC</a></li>
+                        <li><a href="#credit_page" >Informazioni</a></li>
+                    </ul>
+                </div>
+			</div>
+
+
+		</div><!-- /page -->
+
+
+
+		<!--  Map -->
+		<div data-role="page" id="map_page" title="" data-theme="b">
+
+			<!--script>
+				$( '#map_page' ).live( 'pageinit',function(event, ui){
+                   Leaflet_initMap();
+				});
+
+			</script-->
+
+			<div data-role="popup" id="popup_photo" data-overlay-theme="b" data-theme="b" data-corners="false">
+                <a href="#" data-rel="back" data-role="button" data-theme="b" data-icon="delete" data-iconpos="notext" class="ui-btn-right">Close</a><div id="back_image"></div>
+                <div id="popup_image"></div>
+            </div>
+
+            <div data-role="panel" id="layer_panel" data-position="left" data-theme="a" data-display="overlay" data-position-fixed="true">
+                <div id="cartografie_menu" data-role="collapsible-set"  data-theme="a" data-content-theme="a" data-inset="false">
+                    <!--<li><a data-role="button" href="#map_clean_page" data-inset="true"	  >Mappa senza legenda</a></li>-->
+                    <div data-role="collapsible">
+                        <h3>Carta Classi Colturali</h3>
+                        <ul data-role="listview">
+                            <li ><a map_id="UFOR" param_id="COLTURA" href="">Carta Classi Colturali</a></li>
+                        </ul>
+                    </div>
+                    <div data-role="collapsible">
+                        <h3>Carta Strati</h3>
+                        <ul data-role="listview">
+                            <li ><a map_id="UFOR" param_id="STRATI" href="">Carta Strati</a></li>
+                        </ul>
+                    </div>
+
+                    <div data-role="collapsible"  >
+                        <h3>Tipologie forestali</h3>
+                        <ul data-role="listview" >
+                            <li><a map_id="UFOR" param_id="T_FOR_P"    >Pinete</a></li>
+                            <li><a map_id="UFOR" param_id="T_FOR_Q"    >Querceti di caducifoglie</a></li>
+                            <li><a map_id="UFOR" param_id="T_FOR_QL"   >Querceti di leccio</a></li>
+                            <li><a map_id="UFOR" param_id="T_FOR_S"    >Sugherete</a></li>
+                            <li><a map_id="UFOR" param_id="T_FOR_AL"   >Formazioni di altre latifoglie</a></li>
+                            <li><a map_id="UFOR" param_id="T_FOR_PFS"  >Piantagioni forestali speciali</a></li>
+                            <li><a map_id="UFOR" param_id="T_FOR_MM" 	>Formazioni a macchia mediterranea alta</a></li>
+                        </ul>
+                    </div>
+
+                    <div data-role="collapsible" >
+
+                        <h3>LiDAR</h3>
+                        <ul data-role="listview" >
+                            <li><a map_id="LIDAR" >CHM e DTM LiDAR</a></li>
+                        </ul>
+                    </div>
+
+                    <div data-role="collapsible" >
+
+                        <h3>Volume</h3>
+                        <ul data-role="listview" >
+                            <li><a map_id="VOLUME_CONTINUO" >Volume/ha in continuo</a></li>
+                            <li><a map_id="VOLUME_UFOR" >Volume/ha e Volume totale per UFOR</a></li>
+                        </ul>
+                    </div>
+
+                    <div data-role="collapsible" >
+
+                        <h3>Biomassa</h3>
+                        <ul data-role="listview" >
+                            <li><a map_id="BIOMASSA_CONTINUO" >Biomassa/ha in continuo</a></li>
+                            <li><a map_id="BIOMASSA_UFOR" >Biomassa/ha e Biomassa totale per UFOR</a></li>
+                        </ul>
+                    </div>
+
+                    <div data-role="collapsible" >
+
+                        <h3>Ortofoto Storiche</h3>
+                        <ul data-role="listview" >
+                            <li><a map_id="OFD_STORICHE" >Ortofoto Storiche</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+			<!--
+			<div data-role="panel" id="ufor_panel" data-position="right" data-display="overlay" data-position-fixed="true">
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" id="ufor_panel_id" data-rel="close">Chiudi</a></li>
+                    <li><a href="#" id="comp_button">Composizione</a></li>
+                    <li><small><div id="ufor_panel_table" data-role="content"></div></small></li>
+                </ul>
+            </div>
+
+            <div data-role="panel" id="comp_panel" data-position="right" data-display="overlay" data-position-fixed="true">
+                <ul data-role="listview">
+                    <li data-icon="delete"><a href="#" id="comp_panel_id" data-rel="close">Chiudi</a></li>
+                    <li data-icon="back"><a href="#" id="sch_button">Scheda</a></li>
+                    <li><small><div id="comp_panel_table" data-role="content"></div></small></li>
+                </ul>
+            </div>
+            -->
+
+			<div data-role="panel" id="geonote_panel" data-position="right" data-display="overlay" data-position-fixed="true">
+                <div id="geonote_panel_table" data-role="content"></div>
+            </div><!-- /panel -->
+
+            <div data-role="panel" id="bigplot_panel" data-position="right" data-display="overlay" data-position-fixed="true">
+                <div id="bigplot_panel_table" data-role="content"></div>
+            </div><!-- /panel -->
+
+			<div id="map_header" data-role="header" data-position="fixed">
+                <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+				    <a id="map_back" href="#home" class="ui-btn ui-btn-icon-notext ui-icon-arrow-l">Indietro</a>
+                    <a id="layer_select" href="#" class="ui-btn ui-btn-icon-notext ui-icon-eye">Layers</a>
+                </div>
+                <div data-role="controlgroup" data-type="horizontal" class="ui-btn-right">
+                    <a id="map_location" href="#" class="ui-btn ui-btn-icon-notext ui-icon-navigation">GPS</a>
+                    <a id="switch_legenda" href="#"  class="ui-btn ui-btn-icon-notext ui-icon-bullets">Legenda</a>
+                    <a id="switch_layers" href="#"  class="ui-btn ui-btn-icon-notext ui-icon-grid">Layers</a>
+                </div>
+                <h1>SIFTeC</h1>
+			</div>
+
+
+            <div id="map_canvas" data-role="content">
+			    <div id="map_watermark"></div>
+			</div>
+
+		</div><!-- /page -->
+
+        <div data-role="page" id="ufor_page" title="" data-theme="b">
+            <div id="ufor_header" data-role="header" data-position="fixed">
+                <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+				    <a id="ufor_back" href="#map_page" class="ui-btn ui-btn-icon-notext ui-icon-arrow-l" data-transition="flip" >Indietro</a>
+                </div>
+                <h1 id="ufor_panel_id"></h1>
+			</div>
+            <div data-role="collapsible">
+                <h4>Dati</h4>
+                <small><div id="ufor_panel_table" data-role="content"></div></small>
+            </div>
+            <div data-role="collapsible">
+                <h4>Composizione</h4>
+                <small><div id="comp_panel_table" data-role="content"></div></small>
+            </div>
+
+        </div><!-- /page -->
+
+
+
+		<div data-role="page" id="credit_page" title="Crediti realizzazione SIFTeC" data-theme="a">
+		      <div data-role="header" data-position="fixed">
+                <div data-role="controlgroup" data-type="horizontal" class="ui-btn-left">
+				    <a  href="#home" class="ui-btn ui-btn-icon-notext ui-icon-arrow-l">Indietro</a>
+                </div>
+                <h1>Crediti</h1>
+			</div>
+                <ul data-role="listview" data-inset="true">
+
+                    <li><a href="http://www.f360.it">
+                        <img src="images/logo_F360.png">
+                        <h2>EFFETRESEIZERO srl</h2>
+                        <p>Spin-off Ente CREA</p>
+                        </a>
+                    </li>
+                    <li><a href="http://www.crea.gov.it/">
+                        <img src="images/logo_CREA.png">
+                        <h2>CREA-MPF</h2>
+                        <p>CREA Unità di ricerca per il monitoraggio e la pianificazione forestale di Trento</p>
+                        </a>
+                    </li>
+                    <li>
+                        <p>con la collaborazione dell'Osservatorio multidisciplinare<br>
+                            per gli Ecosistemi costieri mediterranei<br>
+                        nell'ambito del progetto ELITE/SIFTEC<br>
+                        su finanziamento dell'Accademia Nazionale delle Scienze</p>
+                    </li>
+                    <li><p>SIFTeC Versione Off-line App 2.1</p></li>
+                    <li><a href="http://www.tourmaps.it">
+                        <img src="images/tourmaps_logo.png">
+                        <h2>Sviluppato con TOURMAPS</h2>
+                        <p>Realizzato da EFFETRESEIZERO srl</p></a>
+                    </li>
+                    <li data-role="collapsible" data-iconpos="right" data-inset="false">
+                        <h4>Librerie open-source</h4>
+                        <ul data-role="listview">
+                          <li><a href="http://jquerymobile.com/">JavaQuery Mobile</a></li>
+                          <li><a href="http://leafletjs.com/">Leaflet</a></li>
+                          <li><a href="https://cordova.apache.org/">Cordova</a></li>
+                        </ul>
+                    </li>
+                </ul>
+
+
+		</div><!-- /page -->
+
+    </body>
+</html>
