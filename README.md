@@ -1,6 +1,6 @@
-# SIF360 & SIFTEC
+# SIFTEC & SIF360
 
-This repository contains two applications—**SIF360** and **SIFTEC**—developed for the management and monitoring of forest resources, particularly within the context of the Tenuta Presidenziale di Castelporziano project. Both applications are GIS-based tools supporting sustainable forest management practices.
+This repository contains two applications—**SIFTEC** and **SIF360**—developed for the management and monitoring of forest resources, particularly within the context of the Tenuta Presidenziale di Castelporziano project. Both applications are GIS-based tools supporting sustainable forest management practices.
 
 ---
 
