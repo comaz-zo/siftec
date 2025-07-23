@@ -1,7 +1,3 @@
-Thank you for the reference! Based on the provided project page, here’s a comprehensive README template for your repository describing both **sif360** and **siftec**, the technologies used, and installation procedures. You can place this in your root or adapt for each subfolder as needed.
-
----
-
 # SIF360 & SIFTEC
 
 This repository contains two applications—**SIF360** and **SIFTEC**—developed for the management and monitoring of forest resources, particularly within the context of the Tenuta Presidenziale di Castelporziano project. Both applications are GIS-based tools supporting sustainable forest management practices.
